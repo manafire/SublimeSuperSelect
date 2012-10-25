@@ -1,4 +1,4 @@
-SublimeSuperSelect
+SuperSelect
 ==================
 
-Extended Sublime selection capabilities 
+Extended Sublime selection capabilities
