@@ -77,3 +77,18 @@ class ExpandNextCommand(SuperSelect):
     last_selected_region = matching_regions[index]
     self.view.show_at_center(last_selected_region)
 
+
+# skip over next selection in line
+class SkipAndSelectNextCommand(SuperSelect):
+  def go(self, edit):
+    global first_selected_region, last_selected_region
+
+    matching_regions = self.get_matching_regions()
+
+    region_count = len(matching_regions)
+    if region_count <= 1:
+      return
+
+    # de-select last and move to next
+    self.view.sel().subtract(last_selected_region)
+    self.view.run_command('expand_next')
