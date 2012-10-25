@@ -11,6 +11,11 @@ class SuperSelect(sublime_plugin.TextCommand):
     global first_selected_region, last_selected_region
     # do things like grab selected words, figure start and end, bounds, skipped, wrap, etc.
 
+    # clear out if only one item selected
+    if (len(self.view.sel()) <= 1):
+      first_selected_region = None
+      last_selected_region = None
+
     # don't run if there's no selection
     # TODO: OR don't run if everything that has been selected already has
     if (self.view.sel()[0].size() > 0):
@@ -19,6 +24,8 @@ class SuperSelect(sublime_plugin.TextCommand):
       if first_selected_region == None:
         first_selected_region = self.view.sel()[0]
         last_selected_region = self.view.sel()[-1]
+
+        print last_selected_region
 
       self.go(edit)
     else:
@@ -49,7 +56,7 @@ class ExpandPrevCommand(SuperSelect):
     matching_regions = self.get_matching_regions()
 
     # highlight all matching regions # sublime does this by default - (for debugging)
-    # self.view.add_regions(key, matching_regions, 'comment', sublime.DRAW_OUTLINED)
+    self.view.add_regions(key, matching_regions, 'comment', sublime.DRAW_OUTLINED)
 
     # back up one to previous match
     prev_region_index = matching_regions.index(first_selected_region) - 1
@@ -90,8 +97,9 @@ class SkipAndSelectPrevCommand(SuperSelect):
       return
 
     # de-select last and move to next
-    self.view.sel().subtract(first_selected_region)
+    current_selected_region = first_selected_region
     self.view.run_command('expand_prev')
+    self.view.sel().subtract(current_selected_region)
 
 
 
@@ -107,5 +115,6 @@ class SkipAndSelectNextCommand(SuperSelect):
       return
 
     # de-select last and move to next
-    self.view.sel().subtract(last_selected_region)
+    current_selected_region = last_selected_region
     self.view.run_command('expand_next')
+    self.view.sel().subtract(current_selected_region)
