@@ -25,3 +25,8 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+*.pyc
+*.cache
+*.sublime-project
+.DS_store
