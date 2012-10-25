@@ -12,7 +12,8 @@ class SuperSelect(sublime_plugin.TextCommand):
     # do things like grab selected words, figure start and end, bounds, skipped, wrap, etc.
 
     # clear out if only one item selected
-    if (len(self.view.sel()) <= 1):
+    num_selected = len(self.view.sel())
+    if (num_selected <= 1):
       first_selected_region = None
       last_selected_region = None
 
@@ -29,8 +30,11 @@ class SuperSelect(sublime_plugin.TextCommand):
 
       self.go(edit)
     else:
-      first_selected_region = None
-      last_selected_region = None
+      # select word at cursor by default
+      self.view.sel().add(self.view.word(self.view.sel()[0]))
+
+      # first_selected_region = None
+      # last_selected_region = None
 
 
   def get_matching_regions(self, pattern = None):
