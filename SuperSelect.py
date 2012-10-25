@@ -30,8 +30,14 @@ class SuperSelect(sublime_plugin.TextCommand):
     # find all regions matching currently selected text
     # separatorString = self.view.settings().get('word_separators') + u" \n\r"
     selected_text = pattern or self.view.substr(self.view.sel()[0])
-    matcher = "(?<!\w)" + selected_text + "(?![\w])"
-    return self.view.find_all(matcher)
+
+    # The default behaviour of Sublime's incremental search is to select the selection
+    # wherever it occurs.  This will result in selections in places where not outlined.
+    # If we want to follow the outlining model, we can use:
+    #   matcher = "(?<!\w)" + selected_text + "(?![\w])"  # if we want to match words
+    # but for now, default to how Sublime currently behaves.
+    # TODO: write a "strict" option in settings so user can choose
+    return self.view.find_all(selected_text)
 
 
 
