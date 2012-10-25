@@ -23,7 +23,7 @@ class SuperSelect(sublime_plugin.TextCommand):
       last_selected_region = None
 
 
-class SelectPreviousCommand(SuperSelect):
+class ExpandPrevCommand(SuperSelect):
   def go(self, edit):
     global first_selected_region
 
