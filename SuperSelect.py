@@ -11,7 +11,9 @@ class SuperSelect(sublime_plugin.TextCommand):
     global first_selected_region, last_selected_region
     # do things like grab selected words, figure start and end, bounds, skipped, wrap, etc.
 
-    if self.view.sel()[0].size() > 0: # don't run if there's no selection
+    # don't run if there's no selection
+    # TODO: OR don't run if everything that has been selected already has
+    if (self.view.sel()[0].size() > 0):
 
       # set up defaults
       if first_selected_region == None:
@@ -23,12 +25,15 @@ class SuperSelect(sublime_plugin.TextCommand):
       first_selected_region = None
       last_selected_region = None
 
+
   def get_matching_regions(self, pattern = None):
     # find all regions matching currently selected text
     # separatorString = self.view.settings().get('word_separators') + u" \n\r"
     selected_text = pattern or self.view.substr(self.view.sel()[0])
     matcher = "(?<!\w)" + selected_text + "(?![\w])"
     return self.view.find_all(matcher)
+
+
 
 class ExpandPrevCommand(SuperSelect):
   def go(self, edit):
