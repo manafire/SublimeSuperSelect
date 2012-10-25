@@ -56,7 +56,8 @@ class ExpandPrevCommand(SuperSelect):
     first_selected_region = matching_regions[prev_region_index]
 
     # add previous region to selection
-    self.view.sel().add(matching_regions[prev_region_index])
+    self.view.sel().add(first_selected_region)
+    self.view.show_at_center(first_selected_region)
 
 
 # Selects next word relative to last selection
@@ -72,5 +73,7 @@ class ExpandNextCommand(SuperSelect):
     index = (matching_regions.index(last_selected_region) + 1) % region_count
     self.view.sel().add(matching_regions[index])
 
+    # prep for next execution
     last_selected_region = matching_regions[index]
+    self.view.show_at_center(last_selected_region)
 
