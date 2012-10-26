@@ -1,0 +1,6 @@
+[
+    { "keys": ["alt+shift+,"], "command": "expand_prev" },
+    { "keys": ["alt+shift+ctrl+,"], "command": "skip_and_select_prev" },
+    { "keys": ["alt+shift+."], "command": "expand_next" },
+    { "keys": ["alt+shift+ctrl+."], "command": "skip_and_select_next" }
+]
