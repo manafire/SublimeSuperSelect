@@ -1,7 +1,7 @@
 {
   "repo": "SublimeSuperSelect",
   "name": "SuperSelect",
-  "description": "Converts characters from one encoding to another using a transformation (think HTML entities, not character encodings).",
+  "description": "Extended selection functionality such as select previous match and skip to next(or prev) match.",
   "author": "Brad Carson (onemanarmy)",
   "homepage": "https://github.com/onemanarmy/SublimeSuperSelect"
 }
