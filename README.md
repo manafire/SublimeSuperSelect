@@ -1,7 +1,9 @@
 SuperSelect
 ==================
 
-Extended selection functionality such as select previous match and skip to next(or prev) match.
+Extended selection functionality such as select previous match, skip to next(or prev) match, and invert selection.
+
+See this [30 second vid](http://youtu.be/8SQi-Fvhp-Q) for a brief demo.
 
 Installation
 ------------
