@@ -14,5 +14,9 @@
     {
         "caption": "SuperSelect: Skip And Select Next",
         "command": "skip_and_select_next"
+    },
+    {
+        "caption": "SuperSelect: Invert selection among matching regions",
+        "command": "invert_selections"
     }
 ]

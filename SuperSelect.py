@@ -137,8 +137,24 @@ class SkipAndSelectNextCommand(SuperSelect):
     self.view.sel().subtract(current_selected_region)
 
 
+class InvertSelectionsCommand(SuperSelect):
+  def go(self, edit):
+    matching_regions = self.get_matching_regions()
+    selections = self.view.sel()
+
+    new_selections = [] # because we can't create RegionSets apparently :(
+    for region in matching_regions:
+      if not selections.contains(region):
+        new_selections.append(region)
+
+    self.view.sel().clear()
+
+    # would be nice to use add_all instead of a loop here, but can't create RegionSets
+    for r in new_selections:
+      self.view.sel().add(r)
+
 
 class UnmarkSuperSelectRegions(sublime_plugin.EventListener):
   def on_selection_modified(self, view):
-    if view.sel()[0].size() == 0:
+    if len(view.sel()) > 0 and view.sel()[0].size() == 0:
       view.erase_regions(key)
