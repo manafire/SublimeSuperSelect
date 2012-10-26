@@ -26,7 +26,8 @@ class SuperSelect(sublime_plugin.TextCommand):
         first_selected_region = self.view.sel()[0]
         last_selected_region = self.view.sel()[-1]
 
-        print last_selected_region
+      first_selected_region = self.normalize(first_selected_region)
+      last_selected_region = self.normalize(last_selected_region)
 
       self.go(edit)
     else:
@@ -35,6 +36,13 @@ class SuperSelect(sublime_plugin.TextCommand):
 
       # first_selected_region = None
       # last_selected_region = None
+
+
+  # in case of reverse selection, ensures lowest number comes first for matching later
+  def normalize(self, region):
+    a = min(region.a, region.b)
+    b = max(region.a, region.b)
+    return sublime.Region(a, b)
 
 
   def get_matching_regions(self, pattern = None):
@@ -60,7 +68,7 @@ class ExpandPrevCommand(SuperSelect):
     matching_regions = self.get_matching_regions()
 
     # highlight all matching regions # sublime does this by default - (for debugging)
-    self.view.add_regions(key, matching_regions, 'comment', sublime.DRAW_OUTLINED)
+    # self.view.add_regions(key, matching_regions, 'comment', sublime.DRAW_OUTLINED)
 
     # back up one to previous match
     prev_region_index = matching_regions.index(first_selected_region) - 1
