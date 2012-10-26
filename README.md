@@ -1,7 +1,7 @@
 SuperSelect
 ==================
 
-Extended Sublime selection capabilities
+Extended selection functionality such as select previous match and skip to next(or prev) match.
 
 Installation
 ------------
