@@ -4,7 +4,8 @@ key = "super_select"
 first_selected_region = None
 last_selected_region = None
 
-# TODO: we are emulating the way Sublime selects words, wish there was a way to grab Sublime's regions.
+# TODO: we are emulating the way Sublime selects words, wish there was a way to grab Sublime's regions:
+# see: http://stackoverflow.com/questions/13060078/how-to-get-the-regions-sublime-creates-when-a-word-is-selected
 class SuperSelect(sublime_plugin.TextCommand):
 
   def run(self, edit):
@@ -59,6 +60,11 @@ class SuperSelect(sublime_plugin.TextCommand):
     return self.view.find_all(selected_text)
 
 
+  def mark_regions(self, regions):
+    # highlight all matching regions # sublime does this by default - (for debugging)
+    self.view.add_regions(key, regions, 'comment', 'bookmark', sublime.DRAW_OUTLINED)
+
+
 
 class ExpandPrevCommand(SuperSelect):
   def go(self, edit):
@@ -66,9 +72,7 @@ class ExpandPrevCommand(SuperSelect):
 
     # grab regions matching selected text
     matching_regions = self.get_matching_regions()
-
-    # highlight all matching regions # sublime does this by default - (for debugging)
-    # self.view.add_regions(key, matching_regions, 'comment', sublime.DRAW_OUTLINED)
+    self.mark_regions(matching_regions)
 
     # back up one to previous match
     prev_region_index = matching_regions.index(first_selected_region) - 1
@@ -86,6 +90,7 @@ class ExpandNextCommand(SuperSelect):
 
     # find all regions matching currently selected text
     matching_regions = self.get_matching_regions()
+    self.mark_regions(matching_regions)
 
     # find next occurence AFTER last_selected_region in matching_regions
     region_count = len(matching_regions)
@@ -130,3 +135,10 @@ class SkipAndSelectNextCommand(SuperSelect):
     current_selected_region = last_selected_region
     self.view.run_command('expand_next')
     self.view.sel().subtract(current_selected_region)
+
+
+
+class UnmarkSuperSelectRegions(sublime_plugin.EventListener):
+  def on_selection_modified(self, view):
+    if view.sel()[0].size() == 0:
+      view.erase_regions(key)
