@@ -1,4 +1,4 @@
-import sublime, sublime_plugin
+import sublime, sublime_plugin, re
 
 key = "super_select"
 first_selected_region = None
@@ -152,6 +152,21 @@ class InvertSelectionsCommand(SuperSelect):
     # would be nice to use add_all instead of a loop here, but can't create RegionSets
     for r in new_selections:
       self.view.sel().add(r)
+
+
+class SelectSequentialStringCommand(SuperSelect):
+  def go(self, edit):
+    search_string = self.view.substr(first_selected_region)
+    splits = re.split('(\d+)', search_string)
+    if len(splits) < 2:
+      return
+
+    word = splits[0]
+    num = splits[1]
+
+    matching_regions = self.get_matching_regions(word + '\d+')
+    for region in matching_regions:
+      self.view.sel().add(region)
 
 
 class UnmarkSuperSelectRegions(sublime_plugin.EventListener):

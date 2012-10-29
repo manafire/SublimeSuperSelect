@@ -18,5 +18,9 @@
     {
         "caption": "SuperSelect: Invert selection among matching regions",
         "command": "invert_selections"
+    },
+    {
+        "caption": "SuperSelect: Select Sequential String",
+        "command": "select_sequential_string"
     }
 ]

@@ -1,7 +1,7 @@
 {
   "repo": "SublimeSuperSelect",
   "name": "SuperSelect",
-  "description": "Extended selection functionality such as select previous match and skip to next(or prev) match.",
+  "description": "Extended selection functionality such as select previous match, skip to next(or prev) match, invert selections among matches and select sequences.",
   "author": "Brad Carson (codercarson)",
   "homepage": "https://github.com/codercarson/SublimeSuperSelect"
 }

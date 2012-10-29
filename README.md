@@ -23,6 +23,8 @@ Commands
 + `skip_and_select_prev` (&#8984;+shift+alt+,): Skips over current selection (de-selects) and moves backwards to select next match.
 + `skip_and_select_next` (&#8984;+shift+alt+.): Skips over current selection (de-selects) and moves forwards to select next match.
 + `invert_selections` (&#8984;+shift+i): Inverts current selections, restricted to matching regions.
++ `select_sequential_string` (&#8984;+shift+0): Selects other strings resembling the current selection that have trailing digit(s).  "Sequential" might be misleading as there is no actual checking for this - I just look for digit(s).
 
 TODO
 --------
+- ~~select sequential string~~
