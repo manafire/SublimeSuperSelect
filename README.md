@@ -9,6 +9,7 @@ Installation
 ------------
 
 With [Package Control](http://wbond.net/sublime_packages/package_control):
+
 1. Run the "Package Control: Install Package" command, find and install SuperSelect plugin.
 2. Restart ST2 editor (if required)
 
