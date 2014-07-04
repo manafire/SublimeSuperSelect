@@ -4,5 +4,6 @@
     { "keys": ["super+shift+."], "command": "expand_next" },
     { "keys": ["super+shift+alt+."], "command": "skip_and_select_next" },
     { "keys": ["super+shift+i"], "command": "invert_selections" },
-    { "keys": ["super+shift+0"], "command": "select_sequential_string" }
+    { "keys": ["super+shift+0"], "command": "select_sequential_string" },
+    { "keys": ["super+shift+1"], "command": "select_strict_sequential_string" }
 ]

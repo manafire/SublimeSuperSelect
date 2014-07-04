@@ -64,7 +64,8 @@ class SuperSelect(sublime_plugin.TextCommand):
     # highlight all matching regions # sublime does this by default - (for debugging)
     self.view.add_regions(key, regions, 'comment', 'bookmark', sublime.DRAW_OUTLINED)
 
-
+  def extract_number(self, search_string):
+    return re.split('(\d+)', search_string)[1]
 
 class ExpandPrevCommand(SuperSelect):
   def go(self, edit):
@@ -154,6 +155,7 @@ class InvertSelectionsCommand(SuperSelect):
       self.view.sel().add(r)
 
 
+
 class SelectSequentialStringCommand(SuperSelect):
   def go(self, edit):
     search_string = self.view.substr(first_selected_region)
@@ -167,6 +169,33 @@ class SelectSequentialStringCommand(SuperSelect):
     matching_regions = self.get_matching_regions(word + '\d+')
     for region in matching_regions:
       self.view.sel().add(region)
+
+
+
+class SelectStrictSequentialStringCommand(SuperSelect):
+  def go(self, edit):
+    # grab the selection
+    search_string = self.view.substr(first_selected_region)
+
+    # separate the word and the number from the selection
+    splits = re.split('(\d+)', search_string)
+    if len(splits) < 2:
+      return
+
+    word = splits[0]
+    num = splits[1]
+
+    # find all regions like this with a number
+    matching_regions = self.get_matching_regions(word + '\d+')
+
+    # find the ones that adhere to the sequence
+    next_number = self.extract_number(self.view.substr(matching_regions[0]))
+    for region in matching_regions:
+      if word + next_number in self.view.substr(region):
+        self.view.sel().add(region)
+        next_number = str(int(next_number) + 1)
+
+
 
 
 class UnmarkSuperSelectRegions(sublime_plugin.EventListener):

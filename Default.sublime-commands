@@ -22,5 +22,9 @@
     {
         "caption": "SuperSelect: Select Sequential String",
         "command": "select_sequential_string"
+    },
+    {
+        "caption": "SuperSelect: Select Strict Sequential String",
+        "command": "select_strict_sequential_string"
     }
 ]
